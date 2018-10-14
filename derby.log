@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Sat Oct 13 23:57:53 BRT 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0166-7082-33f4-000001a52ee8 
+on database directory /home/cristianoaf81/NetBeansProjects/JavaAppSwingJPA/db/concessionaria with class loader sun.misc.Launcher$AppClassLoader@19469ea2 
+Loaded from file:/home/cristianoaf81/db-derby-10.14.2.0-bin/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_181-b13
+user.dir=/home/cristianoaf81/NetBeansProjects/JavaAppSwingJPA
+os.name=Linux
+os.arch=amd64
+os.version=4.15.0-36-generic
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
