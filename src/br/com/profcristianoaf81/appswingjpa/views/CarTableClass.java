@@ -15,7 +15,6 @@ import java.awt.FontFormatException;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -42,7 +41,6 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import javax.swing.text.MaskFormatter;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -486,7 +484,7 @@ public final class CarTableClass extends JFrame{
                   //"JavaAppSwingJPA/db/concessionaria"
                   //        , "root","root"
                   Connection con = DriverManager.getConnection(
-                          "jdbc:derby:jdbc:derby:db/concessionaria, "+
+                          "jdbc:derby:db/concessionaria, "+
                                   "'root', 'root'"
                   );
                   
