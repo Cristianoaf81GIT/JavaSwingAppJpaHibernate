@@ -1,1 +1,1 @@
-Java + Derby db hibernate/jpa netbeans 9
+Java + Derby db hibernate/jpa swing + jasper reports netbeans 9
