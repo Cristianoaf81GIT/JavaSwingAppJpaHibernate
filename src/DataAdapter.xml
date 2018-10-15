@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jdbcDataAdapter class="net.sf.jasperreports.data.jdbc.JdbcDataAdapterImpl"><name>New Data Adapter 1</name><driver>org.apache.derby.jdbc.EmbeddedDriver</driver><username>root</username><password>root</password><savePassword>true</savePassword><url>jdbc:derby:/home/cristianoaf81/NetBeansProjects/JavaAppSwingJPA/db/concessionaria</url><database></database><serverAddress></serverAddress></jdbcDataAdapter>

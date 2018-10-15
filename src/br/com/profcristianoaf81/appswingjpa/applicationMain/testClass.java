@@ -27,5 +27,6 @@ public class testClass {
         }
         
         JpaUtil.closeEntityManagerFactory();
+        
     }
 }

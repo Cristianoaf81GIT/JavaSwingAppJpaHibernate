@@ -17,15 +17,19 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -37,10 +41,16 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.text.MaskFormatter;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  * 
@@ -71,6 +81,16 @@ public final class CarTableClass extends JFrame{
      setTableWindowEvents();
      
     }
+
+    public JTable getCar_table() {
+        return car_table;
+    }
+
+    public void setCar_table(JTable car_table) {
+        this.car_table = car_table;
+    }
+    
+    
     
     public void InitTableWindowComponents() 
             throws FontFormatException, IOException, ParseException{
@@ -125,7 +145,7 @@ public final class CarTableClass extends JFrame{
         carId.setVisible(false);
         save_button = new JButton("Atualizar");
         delete_button = new JButton("Deletar");
-        exportXLS_btn = new JButton("Exportar para Excel");
+        exportXLS_btn = new JButton("Exportar Tabela");
         brand.setEditable(false);
         model.setEditable(false);
         date_assemble.setEditable(false);
@@ -426,7 +446,7 @@ public final class CarTableClass extends JFrame{
        });
        
        exportXLS_btn.addActionListener((l)->{
-              JFileChooser fc = new JFileChooser();
+              /*JFileChooser fc = new JFileChooser();
               fc.setLocale(Locale.getDefault());
               fc.setDialogTitle("Save");
               FileNameExtensionFilter extension = 
@@ -452,11 +472,74 @@ public final class CarTableClass extends JFrame{
                             file = path + "//" + filename + ".xls"; 
 			}
                             toExcel(car_table, new File(file));
-			}
+			}*/
+              try{
+                  InputStream is = this.getClass()
+                          .getResourceAsStream(
+                                  "/br/com/profcristianoaf81/appswingjpa/"
+                                  +"report/relatorio.jasper"
+                          );
+                  Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+                  //jdbc:derby:db/concessionaria ,'root', 'root'
+                  
+                  //"jdbc:derby:/home/cristianoaf81/NetBeansProjects/"
+                  //"JavaAppSwingJPA/db/concessionaria"
+                  //        , "root","root"
+                  Connection con = DriverManager.getConnection(
+                          "jdbc:derby:jdbc:derby:db/concessionaria, "+
+                                  "'root', 'root'"
+                  );
+                  
+                  JasperPrint jasperPrint = JasperFillManager.fillReport(is
+                          , new HashMap<>(),con);
+                  //ignora imagem no arquivo xls
+                  jasperPrint.setProperty(
+                          "net.sf.jasperreports.export.xls.ignore.graphics"
+                          , "true"
+                  );
+                  
+                  JasperViewer jv = new JasperViewer(jasperPrint,false);
+                  
+                  jv.setVisible(true);
+                  JRXlsExporter xlsExporter = new JRXlsExporter();
+                  File WorkSheet_xls = new java.io.File(
+                          System.getProperty("user.home")
+                                  +File.separator
+                                  +"Desktop/relatorio.xls"
+                  );
+                  
+                  xlsExporter.setExporterInput(
+                          new SimpleExporterInput(jasperPrint)
+                  );
+                  
+                  xlsExporter.setExporterOutput(
+                          new SimpleOutputStreamExporterOutput(WorkSheet_xls)
+                  );
+                  xlsExporter.exportReport();
+                  JOptionPane.showMessageDialog(
+                          null
+                          , "Relatório exportado com sucesso!\n"
+                          + "local: "+System.getProperty("user.home")
+                                  +File.separator
+                                  +"Desktop/relatorio.xls"
+                          , "Relatório"
+                          , JOptionPane.INFORMATION_MESSAGE
+                  );
+                  //WorkSheet_xls.deleteOnExit();
+             }catch(ClassNotFoundException 
+                     | SQLException 
+                     | JRException ex){
+               JOptionPane.showMessageDialog(null
+                       , "Erro: "+ex.getMessage()
+                       , "Falha"
+                       , JOptionPane.ERROR_MESSAGE
+               );
+              
+              }
        });
     }
     
-    public void toExcel(JTable table, File file){
+   /* public void toExcel(JTable table, File file){
                
 	try{
 	TableModel model = table.getModel();
@@ -477,7 +560,7 @@ public final class CarTableClass extends JFrame{
 	excel.close();
 	}catch(IOException e){ System.out.println(e); }
 	
-    }
+    }*/
   
     
 }

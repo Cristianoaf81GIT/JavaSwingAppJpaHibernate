@@ -38,6 +38,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.border.AbstractBorder;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -62,7 +63,6 @@ public final class CarWindowClass extends JFrame{
     
     public void StartWindowComponents() throws ParseException{
         setLookAndFeelWindow();
-        this.setBackground(Color.BLACK);
         setIconImage(
           Toolkit.getDefaultToolkit()
                   .getImage(
@@ -73,7 +73,7 @@ public final class CarWindowClass extends JFrame{
                         )
         
         ));
-        setTitle("Cadastro de Veículos");
+        this.setTitle("Cadastro de Veículos");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         setBounds(0, 0, 400, 300);
@@ -218,7 +218,7 @@ public final class CarWindowClass extends JFrame{
                            , "Registro Gravado Com sucesso!"
                            , "Salvar Carro"
                            , JOptionPane.INFORMATION_MESSAGE);
-                   try {
+                   /*try {
                        carTable = new CarTableClass();
                        carTable.setVisible(true);
                        
@@ -228,7 +228,7 @@ public final class CarWindowClass extends JFrame{
                                .log(Level.SEVERE, null, ex);
                    } catch (ParseException ex) {
                        Logger.getLogger(CarWindowClass.class.getName()).log(Level.SEVERE, null, ex);
-                   }
+                   }*/
                    
                    
                }
@@ -238,6 +238,7 @@ public final class CarWindowClass extends JFrame{
             if(carTable == null){
                 try {
                     carTable = new CarTableClass();
+                    //carTable.LoadTableData();
                 } catch (FontFormatException 
                         | IOException | ParseException ex) {
                     Logger.getLogger(CarWindowClass.class.getName())
@@ -245,6 +246,11 @@ public final class CarWindowClass extends JFrame{
                 }
                 carTable.setVisible(true);
             }else{
+                DefaultTableModel tablemodel =
+                        (DefaultTableModel) carTable.getCar_table().getModel();
+                tablemodel.setNumRows(0);
+                
+                carTable.LoadTableData();
                 carTable.setVisible(true);
             }
         });
