@@ -484,8 +484,7 @@ public final class CarTableClass extends JFrame{
                   //"JavaAppSwingJPA/db/concessionaria"
                   //        , "root","root"
                   Connection con = DriverManager.getConnection(
-                          "jdbc:derby:db/concessionaria, "+
-                                  "'root', 'root'"
+                          "jdbc:derby:db/concessionaria","root", "root"
                   );
                   
                   JasperPrint jasperPrint = JasperFillManager.fillReport(is
