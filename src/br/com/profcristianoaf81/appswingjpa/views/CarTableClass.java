@@ -515,7 +515,7 @@ public final class CarTableClass extends JFrame{
                   xlsExporter.exportReport();
                   JOptionPane.showMessageDialog(
                           null
-                          , "Relatório exportado com sucesso!\n"
+                          , "Relatório Excel exportado com sucesso!\n"
                           + "local: "+System.getProperty("user.home")
                                   +File.separator
                                   +"Desktop/relatorio.xls"
